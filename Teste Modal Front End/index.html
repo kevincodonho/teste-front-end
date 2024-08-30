@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Front End Imovel Guide</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="../node_modules/html2canvas/dist/html2canvas.js"></script>
+</head>
+<body>
+    
+    <header>
+        <div class="menu-toggle" id="menu-toggle">
+            &#9776;
+        </div>
+
+        <nav id="nav-menu">
+            <p class="box">IMÓVEL GUIDE</p>
+            <p class="box">Condomínios</p>
+            <p class="box">Fórum</p>
+            <p class="box">Guia</p>
+            <p class="box">Artigos</p>
+            <p class="box">Ferramentas</p>
+        </nav>
+        
+    </header>
+
+    <main>
+        <div class="corretor">
+            <div class="nome1">
+                <img class="img-zoom" src="https://static.vecteezy.com/ti/vetor-gratis/p1/25869552-perfil-imagem-do-mulher-avatar-para-social-redes-com-metade-circulo-moda-brilhante-ilustracao-dentro-na-moda-estilo-vetor.jpg" alt="Corretora">
+                <h3>Nome Corretora</h3>
+                <p>3000 pontos</p>
+                <button class="B1" onclick="mostrarTelefone('tel1')">ver telefone</button>
+                <p id="tel1" class="telefone" style="display:none;">(99) 11998-9976</p>
+            </div>
+    
+            <div class="nome2">
+                <img class="img-zoom" src="https://static.vecteezy.com/ti/vetor-gratis/p1/25869554-perfil-imagem-do-homem-avatar-para-social-redes-com-metade-circulo-moda-brilhante-ilustracao-dentro-na-moda-estilo-vetor.jpg" alt="Corretor">
+                <h3>Nome Corretor</h3>
+                <p>3000 pontos</p>
+                <button class="B2" onclick="mostrarTelefone('tel2')">ver telefone</button>
+                <p id="tel2" class="telefone" style="display:none;">(99) 11955-9947</p>
+            </div>
+    
+        </div>
+    
+        <div class="mensagem">
+            <div class="segunda-div">
+                <h2>Mande uma mensagem:</h2>
+                <form method="post" class="formulario">
+                    <div class="cpf">
+                        <input id="cpf" placeholder="Digite seu CPF" type="text" maxlength="14">
+                    </div>
+                    <div class="tel">
+                        <input id="tel" placeholder="Digite seu telefone" type="text" maxlength="15">
+                    </div>
+                    <div class="assunto">
+                        <textarea placeholder="Digite o assunto" id="assunto"></textarea>
+                    </div>
+                    <div class="botao">
+                        <button type="button" onclick="enviarMensagem()">Enviar Mensagem</button>
+                    </div>
+                    <div class="clear"></div>
+                </form>
+            </div>
+        </div>
+
+        <div class="regra_de_3">
+            <h2>Regra de 3</h2>
+            <div id="calcular">
+                <input id="n1" class="inputs" type="number" placeholder="Valor 1">
+                <input id="n2" class="inputs" type="number" placeholder="Valor 2">
+            </div>
+            <div id="calcular2">
+                <input id="n3" class="inputs" type="number" placeholder="Valor 3">
+                <input id="x" class="inputs" type="number" disabled>
+            </div>
+            <button type="button" onclick="RegraDe3()" id="calcule">Calcular</button>
+        </div>
+
+        <div class="modal" id="modal">
+            <div class="modal-content">
+                <span class="close-button" id="close-button">&times;</span>
+                <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/390676601.jpg?k=9322f702f803d958ebb0cdf55826777feb3a684fc4cf982840c49c944e55eff9&o=&hp=1" alt="Imagem do Modal">
+            </div>
+        </div>
+    
+        <button id="botao-modal">ABRIR IMAGEM NO MODAL</button>
+
+        <div class="imovel-guide" id="capture">
+            <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/390676601.jpg?k=9322f702f803d958ebb0cdf55826777feb3a684fc4cf982840c49c944e55eff9&o=&hp=1" alt="Imagem do Imóvel Guide">
+            <button id="botao-baixar">Download</button>
+        </div>
+    </main>
+
+    <footer>
+        <p> Copyright 2024. Todos os direitos reservados</p>
+    </footer>
+    
+    <script>
+        document.getElementById('menu-toggle').addEventListener('click', function () {
+            const navMenu = document.getElementById('nav-menu');
+            navMenu.classList.toggle('show');
+        });
+
+        function aplicarMascara(value, mask) {
+            let i = 0;
+            return mask.replace(/./g, (char) => {
+                if (char === '0') return value[i++] || '';
+                return char;
+            });
+        }
+
+        function formatarCPF(value) {
+            return aplicarMascara(value, '000.000.000-00');
+        }
+
+        function formatarTelefone(value) {
+            return aplicarMascara(value, '(00) 00000-0000');
+        }
+
+        document.getElementById('cpf').addEventListener('input', function() {
+            this.value = formatarCPF(this.value.replace(/\D/g, ''));
+        });
+
+        document.getElementById('tel').addEventListener('input', function() {
+            this.value = formatarTelefone(this.value.replace(/\D/g, ''));
+        });
+
+        function enviarMensagem() {
+            alert("Mensagem enviada com sucesso!");
+        }
+
+        function RegraDe3() {
+            const n1 = parseFloat(document.getElementById("n1").value);
+            const n2 = parseFloat(document.getElementById("n2").value);
+            const n3 = parseFloat(document.getElementById("n3").value);
+            const x = document.getElementById("x");
+
+            if (n1 === 0) {
+                alert('O valor de n1 não pode ser zero.');
+                return;
+            }
+
+            const resultado = (n2 * n3) / n1;
+            x.value = resultado;
+        }
+
+        function mostrarTelefone(id) {
+            const telefone = document.getElementById(id);
+            telefone.style.display = telefone.style.display === 'none' ? 'block' : 'none';
+        }
+
+        const modal = document.getElementById('modal');
+        const botaoModal = document.getElementById('botao-modal');
+        const closeButton = document.getElementById('close-button');
+        
+        botaoModal.addEventListener('click', function () {
+            modal.classList.add('open');
+            modal.classList.remove('close');
+        });
+
+        closeButton.addEventListener('click', function () {
+            modal.classList.add('close');
+            modal.classList.remove('open');
+        });
+
+        window.addEventListener('click', function (event) {
+            if (event.target === modal) {
+                modal.classList.add('close');
+                modal.classList.remove('open');
+            }
+        }); 
+
+        document.getElementById('botao-baixar').addEventListener('click', function () {
+            html2canvas(document.getElementById('capture')).then(function (canvas) {
+                const link = document.createElement('a');
+                link.href = canvas.toDataURL('image/png');
+                link.download = 'imagem-capturada.png';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }).catch(function (error) {
+                console.error('Erro ao capturar a área:', error);
+            });
+        });
+
+        window.onload = function() {
+            document.querySelectorAll('.img-zoom').forEach(img => {
+                img.classList.add('zoom');
+            });
+        };
+    </script>
+</body>
+</html>
